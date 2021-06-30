@@ -1,9 +1,3 @@
-extern crate reqwest;
-extern crate serde;
-extern crate serde_json;
-extern crate tokio;
-
-//for implementing the format display for the enum
 use std::fmt::{self, Display, Formatter};
 
 use std::fs::File;
@@ -30,6 +24,7 @@ pub struct Anime {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+#[allow(non_snake_case)]
 pub struct Stats {
     pub peak: i32,
     pub previously: StringOrInteger,
@@ -60,7 +55,6 @@ pub async fn get_anime() -> TopAnime {
         .await
         .unwrap();
     let result = request.json::<TopAnime>().await.unwrap();
-    // println!("{:?}", result);
     result
 }
 
@@ -72,3 +66,5 @@ pub fn offline_test() -> TopAnime {
     let res: TopAnime = serde_json::from_str(&buff).unwrap();
     res
 }
+
+//this crate/file is responsible for getting the top ranked anime from the anitop api
