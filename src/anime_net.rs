@@ -1,3 +1,5 @@
+#![allow(non_snake_case, dead_code)]
+
 use std::fmt::{self, Display, Formatter};
 
 use std::fs::File;
@@ -6,7 +8,6 @@ use std::io::Read; //this was the be all end all line that was missing
 use serde::*;
 
 #[derive(Debug, Serialize, Deserialize)]
-#[allow(non_snake_case)]
 pub struct TopAnime {
     pub code: i32,
     pub message: String,
@@ -15,7 +16,6 @@ pub struct TopAnime {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-#[allow(non_snake_case)]
 pub struct Anime {
     pub title: String,
     pub imageUrl: String,
@@ -24,13 +24,30 @@ pub struct Anime {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-#[allow(non_snake_case)]
 pub struct Stats {
     pub peak: i32,
     pub previously: StringOrInteger,
     pub stat: String,
     pub status: String, //consider making this an enum value
     pub weeksOnTop: i32,
+}
+
+impl Display for Stats {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        match self {
+            self::Stats {
+                peak,
+                previously,
+                stat,
+                status,
+                weeksOnTop,
+            } => write!(
+                f,
+                "{} {} {} {} {}",
+                peak, previously, stat, status, weeksOnTop
+            ),
+        }
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -68,3 +85,4 @@ pub fn offline_test() -> TopAnime {
 }
 
 //this crate/file is responsible for getting the top ranked anime from the anitop api
+//built using zero-cost abstractions
