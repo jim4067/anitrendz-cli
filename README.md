@@ -8,9 +8,10 @@ Anitrendz is a cli app that uses data from the [anitiop api](https://anitop.verc
 
 ## Tech stack 💻
 
-This is a rust project and I am using the following crates
-
--
+This is a [rust](https://www.rust-lang.org/) project and I am using the following crates.
+- [clap](https://clap.rs/) for parsing command line arguments.
+- [serde](https://serde.rs/) for serializing and deserializing the JSON data.
+- [reqwest] for making HTTP requests to the anitop api.
 
 ## Source data 📝
 
