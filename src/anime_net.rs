@@ -71,6 +71,7 @@ pub async fn get_anime() -> TopAnime {
     let request = reqwest::get("https://anitop.vercel.app/api/v1/top-anime")
         .await
         .unwrap();
+    assert!(request.status().is_success());
     let result = request.json::<TopAnime>().await.unwrap();
     result
 }

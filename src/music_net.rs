@@ -69,6 +69,7 @@ pub async fn get_music() -> TopMusic {
     let request = reqwest::get("https://anitop.vercel.app/api/v1/music-chart")
         .await
         .unwrap();
+    assert!(request.status().is_success());
     let result = request.json::<TopMusic>().await.unwrap();
     result
 }
