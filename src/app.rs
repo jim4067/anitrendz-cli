@@ -69,11 +69,17 @@ pub fn top_anime_list_uncolored() {
     let data = res.data;
 
     for (pos, anime) in data.iter().enumerate().rev() {
-        println!("title: {}", anime.title);
-        println!("image{}", anime.imageUrl);
-        println!("studio: {}", anime.studio);
-        println!("rank: {}", pos + 1);
-        println!("{:?}", anime.stats);
+        println!(" title: {}", anime.title);
+        println!(" studio: {}", anime.studio);
+        println!(" rank: {}", pos + 1);
+        println!(
+            " stats for nerds : [ peak: {} | previously: {} | stat: {} | status: {} | weeks_on_top: {} ] ",
+            anime.stats.peak,
+            anime.stats.previously,
+            anime.stats.stat,
+            anime.stats.status,
+            anime.stats.weeksOnTop
+        );
         println!();
     }
 }
@@ -124,7 +130,7 @@ pub fn music_charts_list() {
         );
         rainbow_println(
             format!(
-                "\t itunes  -> {}",
+                "\t itunes -> {}",
                 song.mediaUrl
                     .itunes
                     .as_ref()
@@ -137,7 +143,7 @@ pub fn music_charts_list() {
 
         // match song.mediaUrl.youtube.as_ref() {
         //     Some(val) => rainbow_println(format!(" listen: youtube -> {}", val).as_str(), 0.1, 3.0),
-        //     None => rainbow_println(" liseten: youtube -> not found on youtube", 0.1, 3.0),
+        //     None => rainbow_println(" listen: youtube -> not found on youtube", 0.1, 3.0),
         // }
         println!()
     }
@@ -154,6 +160,27 @@ pub fn music_charts_list_uncolored() {
         println!(
             " stats for nerds :: [ peak: {} | previously: {} | weeks_on_top: {} ]",
             song.stats.peak, song.stats.previously, song.stats.weeks
+        );
+        println!(
+            " listen: youtube -> {}",
+            song.mediaUrl
+                .youtube
+                .as_ref()
+                .unwrap_or(&"404 Not Available".to_string())
+        );
+        println!(
+            " \t spotify -> {}",
+            song.mediaUrl
+                .spotify
+                .as_ref()
+                .unwrap_or(&"404 Not Available".to_string())
+        );
+        println!(
+            " \t itunes  -> {}",
+            song.mediaUrl
+                .itunes
+                .as_ref()
+                .unwrap_or(&"404 Not Available".to_string())
         );
         println!();
     }
