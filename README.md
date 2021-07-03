@@ -1,4 +1,4 @@
-![anitrendz-cli](https://socialify.git.ci/jim4067/anitrendz-cli/image?description=1&font=Raleway&language=1&owner=1&pattern=Plus&stargazers=1&theme=Dark)
+![anitrendz-cli](https://socialify.git.ci/jim4067/anitrendz-cli/image?description=1&issues=1&language=1&owner=1&stargazers=1&theme=Dark)
 
 ## Description
 
