@@ -18,9 +18,8 @@ fn main() {
 
 fn run() {
     let cli = App::new("anitrendz-cli")
-        .version("0.1-beta\n")
-        .author("James M. <jimmyimpulse2@gmail.com>\n")
-        .about("Get a list of top anime, music charts and random recommendation right on your terminal")
+        .version("0.1-beta")
+        .about("Get a list of trending anime, anime music charts and random recommendation right on your terminal.")
         .arg(
             Arg::with_name("anime")
                 .short("a")
@@ -55,3 +54,7 @@ fn run() {
         app::top_anime_list();
     }
 }
+
+
+//in the future add a feature to search for anime using the Anilist api
+//so I will do a POST request with reqwest
