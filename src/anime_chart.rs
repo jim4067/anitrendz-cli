@@ -8,7 +8,6 @@ pub struct Header {
     pub season: String,
     pub week: String,
     pub date: String,
-    //below is what does not belong
     pub top_anime: Vec<TopAnime>,
 }
 
@@ -113,15 +112,8 @@ impl TopAnime {
     }
 }
 
+#[allow(unused_assignments)]
 impl Stats {
-    // pub fn get_anime_stats(html_source: &str) -> Vec<Stats> {
-    //     Document::from(html_source)
-    //         .find(Class("at-mcc-e-movement"))
-    //         // .map(|node| Stats::stats(&node))
-    //         .map(|node| Stats::stats(&node))
-    //         .collect()
-    // } this function was used for testing
-
     pub fn stats(node: &Node) -> Stats {
         let peak = node
             .find(Class("peak").child(Name("span")))
@@ -166,7 +158,6 @@ impl Stats {
         }
     }
 }
-
 
 #[cfg(test)]
 #[path = "./tests/anime_chart_test.rs"]

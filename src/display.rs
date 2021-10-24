@@ -1,8 +1,8 @@
 use crate::anime_chart;
-use crate::net;
+use crate::source;
 
 pub async fn print_anime_charts() {
-    let anime_list = anime_chart::Header::chart_details(net::anime_charts_offline()).await;
+    let anime_list = anime_chart::Header::chart_details(source::anime_charts_offline()).await;
 
     println!(
         "\n\t\t\t\t\t [ {} | {} | {} ]\n",
