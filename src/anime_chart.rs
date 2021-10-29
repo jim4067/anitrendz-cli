@@ -1,3 +1,4 @@
+use futures::join;
 use select::document::Document;
 use select::node::Node;
 use select::predicate::Predicate;
@@ -29,41 +30,83 @@ pub struct Stats {
 }
 
 impl Header {
-    pub async fn chart_details(html_source: &'static str) -> Header {
-        let season = tokio::spawn(async move {
-            Document::from(html_source)
+    // pub async fn chart_details(html_source: &'static str) -> Header {
+    //     let season = tokio::spawn(async move {
+    //         Document::from(html_source)
+    //             .find(Class("at-cth-top-season"))
+    //             .next()
+    //             .unwrap()
+    //             .text()
+    //             .trim()
+    //             .to_string()
+    //     });
+    //     let week = tokio::spawn(async move {
+    //         Document::from(html_source)
+    //             .find(Class("at-cth-b-week-no"))
+    //             .next()
+    //             .unwrap()
+    //             .text()
+    //             .trim()
+    //             .to_string()
+    //     });
+    //     let date = tokio::spawn(async move {
+    //         Document::from(html_source)
+    //             .find(Class("at-cth-b-date"))
+    //             .next()
+    //             .unwrap()
+    //             .text()
+    //             .trim()
+    //             .to_string()
+    //     });
+
+    //     let top_anime = tokio::spawn(async move { TopAnime::get_anime_charts(html_source) });
+
+    //     let season = season.await.unwrap();
+    //     let week = week.await.unwrap();
+    //     let date = date.await.unwrap();
+    //     let top_anime = top_anime.await.unwrap();
+
+    //     Self {
+    //         season,
+    //         week,
+    //         date,
+    //         top_anime,
+    //     }
+    // }
+
+    pub async fn chart_details(html_source: String) -> Header {
+        let season = async {
+            Document::from(html_source.as_str())
                 .find(Class("at-cth-top-season"))
                 .next()
                 .unwrap()
                 .text()
                 .trim()
                 .to_string()
-        });
-        let week = tokio::spawn(async move {
-            Document::from(html_source)
+        };
+        let week = async {
+            Document::from(html_source.as_str())
                 .find(Class("at-cth-b-week-no"))
                 .next()
                 .unwrap()
                 .text()
                 .trim()
                 .to_string()
-        });
-        let date = tokio::spawn(async move {
-            Document::from(html_source)
+        };
+
+        let date = async {
+            Document::from(html_source.as_str())
                 .find(Class("at-cth-b-date"))
                 .next()
                 .unwrap()
                 .text()
                 .trim()
                 .to_string()
-        });
+        };
 
-        let top_anime = tokio::spawn(async move { TopAnime::get_anime_charts(html_source) });
+        let top_anime = async { TopAnime::get_anime_charts(html_source.as_str()) };
 
-        let season = season.await.unwrap();
-        let week = week.await.unwrap();
-        let date = date.await.unwrap();
-        let top_anime = top_anime.await.unwrap();
+        let (season, week, date, top_anime) = join!(season, week, date, top_anime);
 
         Self {
             season,
