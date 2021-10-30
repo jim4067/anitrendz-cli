@@ -1,3 +1,4 @@
+use futures::join;
 use select::document::Document;
 use select::node::Node;
 use select::predicate::Predicate;
@@ -9,7 +10,7 @@ pub struct Header {
     pub season: String,
     pub week: String,
     pub date: String,
-    pub top_characters: Vec<Characters>,
+    pub characters: Vec<Characters>,
 }
 
 #[derive(Debug)]
@@ -30,9 +31,9 @@ pub struct Stats {
 }
 
 impl Header {
-    pub async fn chart_details(html_source: &'static str) -> Header {
-        let title = tokio::spawn(async move {
-            Document::from(html_source)
+    pub async fn chart_details(html_source: String) -> Header {
+        let title = async {
+            Document::from(html_source.as_str())
                 .find(Class("at-cth-top"))
                 .next()
                 .unwrap()
@@ -42,49 +43,45 @@ impl Header {
                 .next()
                 .unwrap()
                 .to_string()
-        });
-        let season = tokio::spawn(async move {
-            Document::from(html_source)
+        };
+        let season = async {
+            Document::from(html_source.as_str())
                 .find(Class("at-cth-top-season"))
                 .next()
                 .unwrap()
                 .text()
                 .trim()
                 .to_string()
-        });
-        let week = tokio::spawn(async move {
-            Document::from(html_source)
+        };
+        let week = async {
+            Document::from(html_source.as_str())
                 .find(Class("at-cth-b-week-no"))
                 .next()
                 .unwrap()
                 .text()
                 .trim()
                 .to_string()
-        });
-        let date = tokio::spawn(async move {
-            Document::from(html_source)
+        };
+        let date = async {
+            Document::from(html_source.as_str())
                 .find(Class("at-cth-b-date"))
                 .next()
                 .unwrap()
                 .text()
                 .trim()
                 .to_string()
-        });
+        };
 
-        let characters = tokio::spawn(async move { Characters::get_character_charts(html_source) });
+        let characters = async { Characters::get_character_charts(html_source.as_str()) };
 
-        let season = season.await.unwrap();
-        let title = title.await.unwrap();
-        let week = week.await.unwrap();
-        let date = date.await.unwrap();
-        let top_characters = characters.await.unwrap();
+        let (title, season, week, date, characters) = join!(title, season, week, date, characters);
 
         Self {
             season,
             title,
             week,
             date,
-            top_characters,
+            characters,
         }
     }
 }
@@ -173,3 +170,5 @@ impl Stats {
         }
     }
 }
+
+//character charts i.e -> male characters, female characters and couple ship characters
