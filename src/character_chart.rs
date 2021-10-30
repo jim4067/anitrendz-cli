@@ -1,4 +1,3 @@
-use futures::join;
 use select::document::Document;
 use select::node::Node;
 use select::predicate::Predicate;
@@ -31,50 +30,40 @@ pub struct Stats {
 }
 
 impl Header {
-    pub async fn chart_details(html_source: String) -> Header {
-        let title = async {
-            Document::from(html_source.as_str())
-                .find(Class("at-cth-top"))
-                .next()
-                .unwrap()
-                .text()
-                .trim()
-                .split("\n")
-                .next()
-                .unwrap()
-                .to_string()
-        };
-        let season = async {
-            Document::from(html_source.as_str())
-                .find(Class("at-cth-top-season"))
-                .next()
-                .unwrap()
-                .text()
-                .trim()
-                .to_string()
-        };
-        let week = async {
-            Document::from(html_source.as_str())
-                .find(Class("at-cth-b-week-no"))
-                .next()
-                .unwrap()
-                .text()
-                .trim()
-                .to_string()
-        };
-        let date = async {
-            Document::from(html_source.as_str())
-                .find(Class("at-cth-b-date"))
-                .next()
-                .unwrap()
-                .text()
-                .trim()
-                .to_string()
-        };
+    pub fn chart_details(html_source: String) -> Header {
+        let title = Document::from(html_source.as_str())
+            .find(Class("at-cth-top"))
+            .next()
+            .unwrap()
+            .text()
+            .trim()
+            .split("\n")
+            .next()
+            .unwrap()
+            .to_string();
+        let season = Document::from(html_source.as_str())
+            .find(Class("at-cth-top-season"))
+            .next()
+            .unwrap()
+            .text()
+            .trim()
+            .to_string();
+        let week = Document::from(html_source.as_str())
+            .find(Class("at-cth-b-week-no"))
+            .next()
+            .unwrap()
+            .text()
+            .trim()
+            .to_string();
+        let date = Document::from(html_source.as_str())
+            .find(Class("at-cth-b-date"))
+            .next()
+            .unwrap()
+            .text()
+            .trim()
+            .to_string();
 
-        let characters = async { Characters::get_character_charts(html_source.as_str()) };
-
-        let (title, season, week, date, characters) = join!(title, season, week, date, characters);
+        let characters = Characters::get_character_charts(html_source.as_str());
 
         Self {
             season,
