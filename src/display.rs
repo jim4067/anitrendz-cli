@@ -2,8 +2,10 @@ use crate::anime_chart;
 use crate::character_chart;
 use crate::source;
 
-pub async fn print_anime_charts() {
-    let anime_list = anime_chart::Header::chart_details(source::anime_charts_offline()).await;
+pub fn print_anime_charts() {
+    let base_url = "https://anitrendz.net/charts/top-anime/";
+    let source = source::download_html_source(base_url);
+    let anime_list = anime_chart::Header::chart_details(source);
 
     println!(
         "\n\t\t\t\t\t [ {} | {} | {} ]\n",
@@ -22,16 +24,17 @@ pub async fn print_anime_charts() {
     );
 }
 
-pub async fn print_male_character_charts() {
-    let character_list =
-        character_chart::Header::chart_details(source::male_characters_offline()).await;
+pub fn print_male_character_charts() {
+    let base_url = "https://anitrendz.net/charts/male-characters/";
+    let source = source::download_html_source(base_url);
+    let character_list = character_chart::Header::chart_details(source);
 
     println!(
         "\n\t\t\t [ {} | {} | {} | {} ]\n",
         character_list.title, character_list.season, character_list.week, character_list.date
     );
 
-    for male_character in character_list.top_characters.iter().rev() {
+    for male_character in character_list.characters.iter().rev() {
         println!(" name: {}", male_character.name);
         println!(" show: {} ", male_character.show);
         println!(" rank: {} ", male_character.rank);
@@ -44,16 +47,17 @@ pub async fn print_male_character_charts() {
     );
 }
 
-pub async fn print_female_character_charts() {
-    let character_list =
-        character_chart::Header::chart_details(source::female_characters_offline()).await;
+pub fn print_female_character_charts() {
+    let base_url = "https://anitrendz.net/charts/female-characters/";
+    let source = source::download_html_source(base_url);
+    let character_list = character_chart::Header::chart_details(source);
 
     println!(
         "\n\t\t\t [ {} | {} | {} | {} ]\n",
         character_list.title, character_list.season, character_list.week, character_list.date
     );
 
-    for female_character in character_list.top_characters.iter().rev() {
+    for female_character in character_list.characters.iter().rev() {
         println!(" name: {}", female_character.name);
         println!(" show: {} ", female_character.show);
         println!(" rank: {} ", female_character.rank);
@@ -66,16 +70,17 @@ pub async fn print_female_character_charts() {
     );
 }
 
-pub async fn print_couple_ships() {
-    let character_list =
-        character_chart::Header::chart_details(source::couple_ships_offline()).await;
+pub fn print_couple_ships() {
+    let base_url = "https://anitrendz.net/charts/couple-ship/";
+    let source = source::download_html_source(base_url);
+    let character_list = character_chart::Header::chart_details(source);
 
     println!(
         "\n\t\t\t [ {} | {} | {} | {} ]\n",
         character_list.title, character_list.season, character_list.week, character_list.date
     );
 
-    for couple_ships in character_list.top_characters.iter().rev() {
+    for couple_ships in character_list.characters.iter().rev() {
         println!(" name: {}", couple_ships.name);
         println!(" show: {} ", couple_ships.show);
         println!(" rank: {} ", couple_ships.rank);
@@ -88,4 +93,4 @@ pub async fn print_couple_ships() {
     );
 }
 
-//this is teh crate that is responsible for displaying printing the results to the terminal
+// this is teh crate that is responsible for displaying printing the results to the terminal
