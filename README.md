@@ -2,33 +2,10 @@
 
 ## Description
 
-Anitrendz is a cli app that uses data from the [anitiop api](https://anitop.vercel.app/) to list the top anime and songs or recommend a random anime to watch or song to listen to.
-
-> I made this project to strengthen my knowledge on rust and learn how to handle JSON data
-
-## Tech stack 💻
-
-This is a [rust](https://www.rust-lang.org/) project and I am using the following crates.
-- [clap](https://clap.rs/) for parsing command line arguments.
-- [serde](https://serde.rs/) for serializing and deserializing the JSON data.
-- [reqwest](https://docs.rs/reqwest/0.11.4/reqwest/) for making HTTP requests to the anitop api.
-
-## Source data 📝
-
-For the data, i used the anitop api
-
--   [anitop API](https://anitop.vercel.app/)
-
-## What I learned?
-
--   fetching data using reqwest and consuming api's in rust.
--   using serde.js to deserialize and serialize json data.
--   How to format custom types and display them using Display.
--   ANSI escape codes and especially Select Graphics Rendition(SGR) for the colored output
--   making a command line app using clap.rs
+rewriting the cli app since the [anitiop api](https://anitop.vercel.app/) api broke. The code for the previous app can be found under the [v1-anitop](https://github.com/jim4067/anitrendz-cli/tree/v1-anitop) branch
 
 ## Project setup
 
-Download the binary package from the releases page.
+<strike> Download the binary package from the releases page.</strike> clone the repo and cargo run the project
 
 Jimmy ©2021
