@@ -10,9 +10,5 @@ edition = "2021"
 [dependencies]
 clap = "2.33.3"
 rand = "0.8.4"
-reqwest = { version = "0.11.4", features = ["json"] }
+reqwest = { version = "0.11.4", features = ["blocking"] }
 select = "0.5.0"
-serde = { version = "1.0.126", features = ["derive"] }
-serde_json = "1.0.64"
-term = "0.7.0"
-tokio = { version = "1.7.1", features = ["full"] }
