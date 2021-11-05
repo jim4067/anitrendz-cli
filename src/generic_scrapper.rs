@@ -1,4 +1,3 @@
-// use futures::channel::oneshot;
 use select::document::Document;
 use select::node::Node;
 use select::predicate::Predicate;
@@ -64,7 +63,7 @@ impl Header {
             .trim()
             .to_string();
 
-        let chart_entry = ChartEntry::get_character_charts(html_source.as_str());
+        let chart_entry = ChartEntry::get_entry_charts(html_source.as_str());
 
         Self {
             season,
@@ -77,7 +76,7 @@ impl Header {
 }
 
 impl ChartEntry {
-    pub fn get_character_charts(html_source: &str) -> Vec<ChartEntry> {
+    pub fn get_entry_charts(html_source: &str) -> Vec<ChartEntry> {
         Document::from(html_source)
             .find(Class("at-mcc-entry")) //removed into iter in the next line
             .map(|node| ChartEntry::anime(&node))
