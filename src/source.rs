@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 pub fn download_html_source(base_url: &str) -> String {
     let html_file = reqwest::blocking::get(base_url).unwrap();
     let text_html_file = html_file.text().unwrap();
