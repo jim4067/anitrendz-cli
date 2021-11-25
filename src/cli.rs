@@ -15,45 +15,51 @@ pub fn cli_app() -> Result<(), Box<dyn Error>> {
         .arg(
             Arg::with_name("male character charts")
                 .short("m")
-                .long("male-characters") //.takes_value(true)
-                .help("lists, male characters from anitrendz"), // .takes_value(true),
+                .long("male-characters")
+                .help("lists, male characters from anitrendz"),
         )
         .arg(
             Arg::with_name("female character charts")
                 .short("f")
                 .long("female-characters")
-                // .takes_value(true)
-                .help("Play the songs in a specified directory"),
+                .help("lists, female characters from anitrendz"),
         )
         .arg(
             Arg::with_name("couple ships charts")
                 .short("c")
                 .long("couple-ships")
-                // .takes_value(true)
-                .help("Play the songs in a specified directory"),
+                .help("lists, couple ships characters from anitrendz"),
+        )
+        .arg(
+            Arg::with_name("opening song charts")
+                .short("o")
+                .long("op-songs")
+                .help("print the top anime opening songs"),
+        )
+        .arg(
+            Arg::with_name("ending song charts")
+                .short("e")
+                .long("ed-songs")
+                .help("print the top anime ending songs"),
         )
         .get_matches();
-
-    //getting the value for play from
 
     if cli.is_present("anime charts") {
         display::print_anime_charts();
     } else if cli.is_present("male character charts") {
-        // let input = cli.value_of("play-from").unwrap();
-        // playback::play_from(input);
         display::print_male_character_charts();
     } else if cli.is_present("female character charts") {
         display::print_female_character_charts();
     } else if cli.is_present("couple ships charts") {
-        display::print_couple_ships();  
+        display::print_couple_ships();
+    } else if cli.is_present("opening song charts") {
+        display::print_opening_songs();
+    } else if cli.is_present("ending song charts") {
+        display::print_ending_songs();
     } else {
         display::print_anime_charts();
     }
     Ok(())
 }
-
-//show which season we are in eg fall and such
-//give the user the ability to choose how many entries he wants eg, 10, 20, 50, 100 etc, or instead of
-//having hard coded values you can have the user enter a number and pass that number to the take() function
 
 //this crate is responsible for parsing cli input
