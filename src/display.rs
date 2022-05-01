@@ -38,7 +38,7 @@ fn generic_print_function(base_url: &str) {
         println!(" name: {}", entry.name);
         println!(" show: {} ", entry.show);
         println!(" rank: {} ", entry.rank);
-        println!(" stats for nerd : [ peak: {} | previously: {} | stat: {} | status: {} | weeks_on_top: {} ] \n", entry.stats.peak, entry.stats.prev,entry.stats.stat, entry.stats.status, entry.stats.weeks_on_top );
+        println!(" stats for nerds : [ peak: {} | previously: {} | stat: {} | status: {} | weeks_on_top: {} ] \n", entry.stats.peak, entry.stats.prev,entry.stats.stat, entry.stats.status, entry.stats.weeks_on_top );
     }
 
     println!(
