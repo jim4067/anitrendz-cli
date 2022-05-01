@@ -6,6 +6,9 @@ rewriting the cli app since the [anitiop api](https://anitop.vercel.app/) api br
 
 ## Project setup
 
+## Why Update It
+The previous version used an api that also scrapped the site but when it went down, well a new source for the data had to be found, hence I decided to scrape anitrendz.net myself.
+	
 <strike> Download the binary package from the releases page.</strike> clone the repo and cargo run the project
 
 Jimmy ©2021
